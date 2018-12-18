@@ -15,8 +15,8 @@
 * Enemies will be different shapes that will follow the player
 * If enemy reaches the player, the game ends
 * A score will be kept 
-    - Enemies will have different point values
-    - Time played will influence the score
+    - Enemies will have different point values (killing rewards points)
+    - Time played will reward points
 * The player and enemies will be restricted to the same 2d field of play
 * The field of play will have clearly defined bounds
 
