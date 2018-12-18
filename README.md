@@ -20,7 +20,7 @@
 * The player and enemies will be restricted to the same 2d field of play
 * The field of play will have clearly defined bounds
 
-### Stretch Goals -
+### Stretch Goals
 * Distort Screen space and add particle effects
 * Display the score on the game window (need font handling added to engine)
 * Add power-ups and auto-win events
