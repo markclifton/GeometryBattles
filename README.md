@@ -6,7 +6,6 @@
 * Will be written in C++/OpenGL in a Linux environment
 * Will use the game engine I have been working on (WIP)
 * Will only support keyboard input
-
 * Will start with a project that links the engine and required headers
 * Code will be available on a github page, tbd.
 
