@@ -3,16 +3,11 @@ cmake_minimum_required(VERSION 2.8)
 project(GeometryBattles)
 add_executable(${PROJECT_NAME} "main.cpp")
 
-target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/independent/ProjectSane/libProjectSane.so)
+target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/ProjectSane/libProjectSane.so)
 
-include_directories(${CMAKE_SOURCE_DIR}/dependencies/independent)
-include_directories(${CMAKE_SOURCE_DIR}/dependencies/independent/ProjectSane)
-include_directories(${CMAKE_SOURCE_DIR}/dependencies/independent/ProjectSane/engine)
-
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-    "${CMAKE_SOURCE_DIR}/dependencies/linux/irrKlang/ikpMP3.so"
-    $<TARGET_FILE_DIR:${PROJECT_NAME}>)
+include_directories(${CMAKE_SOURCE_DIR}/dependencies/)
+include_directories(${CMAKE_SOURCE_DIR}/dependencies/ProjectSane/)
+include_directories(${CMAKE_SOURCE_DIR}/dependencies/ProjectSane/includes/)
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${PROJECT_NAME}>/resources")

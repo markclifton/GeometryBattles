@@ -1,8 +1,7 @@
-#include "engine/game.h"
+#include "game.h"
 
 int main()
 {
-    Game g;
-    g.run();
+    ps::Game g;
     return 0;
 }
