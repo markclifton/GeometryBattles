@@ -16,6 +16,7 @@ GeometryBattles::GeometryBattles()
 
 GeometryBattles::~GeometryBattles()
 {
+    ps::managers::WindowManager::Get().close();
 }
 
 void GeometryBattles::setup()
