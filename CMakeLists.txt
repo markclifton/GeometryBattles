@@ -1,12 +1,24 @@
 cmake_minimum_required(VERSION 2.8)
 
 project(GeometryBattles)
-add_executable(${PROJECT_NAME} "main.cpp")
+
+file(GLOB SOURCES
+    game/*.h
+    game/*.cpp
+    game/**/*.h
+    game/**/*.cpp
+    game/**/**/*.h
+    game/**/**/*.cpp
+    main.cpp
+)
+
+add_executable(${PROJECT_NAME} ${SOURCES})
 
 # Package Included Libraries
 target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/ProjectSane/lib/libProjectSane.a)
 target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/irrKlang/lib/libIrrKlang.so)
 target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/glfw3/lib/libglfw3.a)
+target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/freeimage/lib/libfreeimage.a)
 
 # System Available Libraries
 target_link_libraries(${PROJECT_NAME} GLU)
