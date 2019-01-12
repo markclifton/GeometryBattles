@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
-
 project(GeometryBattles)
+
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 file(GLOB SOURCES
     game/*.h
@@ -14,32 +16,47 @@ file(GLOB SOURCES
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 
-# Package Included Libraries
-target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/ProjectSane/lib/libProjectSane.a)
-target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/irrKlang/lib/libIrrKlang.so)
-target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/glfw3/lib/libglfw3.a)
-target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/freeimage/lib/libfreeimage.a)
+IF(APPLE)
+    # Header Includes
+    include_directories(${CMAKE_SOURCE_DIR}/dependencies/mac/projectsane/include)
+    include_directories(${CMAKE_SOURCE_DIR}/dependencies/mac/glad/)
+    include_directories(${CMAKE_SOURCE_DIR}/dependencies/mac/glm/include)
+    include_directories(${CMAKE_SOURCE_DIR}/dependencies/mac/glfw/include)
 
-# System Available Libraries
-target_link_libraries(${PROJECT_NAME} GLU)
-target_link_libraries(${PROJECT_NAME} GL)
-target_link_libraries(${PROJECT_NAME} X11)
-target_link_libraries(${PROJECT_NAME} Xrandr)
-target_link_libraries(${PROJECT_NAME} Xxf86vm)
-target_link_libraries(${PROJECT_NAME} Xinerama)
-target_link_libraries(${PROJECT_NAME} Xcursor)
-target_link_libraries(${PROJECT_NAME} rt)
-target_link_libraries(${PROJECT_NAME} m)
-target_link_libraries(${PROJECT_NAME} pthread)
-target_link_libraries(${PROJECT_NAME} dl)
+    # Package Included Libraries
+    target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/mac/projectsane/lib/libProjectSane.a)
+    target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/mac/glfw/lib/libglfw.3.3.dylib)
+    target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/mac/irrKlang/libirrklang.dylib)
+    target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/mac/freeimage/lib/libfreeimage.a)
 
-# Header Includes
-include_directories(${CMAKE_SOURCE_DIR}/dependencies/glm/)
-include_directories(${CMAKE_SOURCE_DIR}/dependencies/glad/)
-include_directories(${CMAKE_SOURCE_DIR}/dependencies/glfw3/includes)
-include_directories(${CMAKE_SOURCE_DIR}/dependencies/irrKlang/includes)
-include_directories(${CMAKE_SOURCE_DIR}/dependencies/freeimage/includes)
-include_directories(${CMAKE_SOURCE_DIR}/dependencies/ProjectSane/includes)
+ELSE()
+    # Package Included Libraries
+    target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/ProjectSane/lib/libProjectSane.a)
+    target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/irrKlang/lib/libIrrKlang.so)
+    target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/glfw3/lib/libglfw3.a)
+    target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/freeimage/lib/libfreeimage.a)
+
+    # System Available Libraries
+    target_link_libraries(${PROJECT_NAME} GLU)
+    target_link_libraries(${PROJECT_NAME} GL)
+    target_link_libraries(${PROJECT_NAME} X11)
+    target_link_libraries(${PROJECT_NAME} Xrandr)
+    target_link_libraries(${PROJECT_NAME} Xxf86vm)
+    target_link_libraries(${PROJECT_NAME} Xinerama)
+    target_link_libraries(${PROJECT_NAME} Xcursor)
+    target_link_libraries(${PROJECT_NAME} rt)
+    target_link_libraries(${PROJECT_NAME} m)
+    target_link_libraries(${PROJECT_NAME} pthread)
+    target_link_libraries(${PROJECT_NAME} dl)
+
+    # Header Includes
+    include_directories(${CMAKE_SOURCE_DIR}/dependencies/linux/glm/)
+    include_directories(${CMAKE_SOURCE_DIR}/dependencies/linux/glad/)
+    include_directories(${CMAKE_SOURCE_DIR}/dependencies/linux/glfw3/includes)
+    include_directories(${CMAKE_SOURCE_DIR}/dependencies/linux/irrKlang/includes)
+    include_directories(${CMAKE_SOURCE_DIR}/dependencies/linux/freeimage/includes)
+    include_directories(${CMAKE_SOURCE_DIR}/dependencies/linux/ProjectSane/includes)
+ENDIF()
 
 # Post Build Steps
 

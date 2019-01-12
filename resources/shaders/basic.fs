@@ -1,4 +1,4 @@
-#version 450 core
+#version 330 core
 
 struct Light
 {
@@ -33,7 +33,7 @@ in FSData {
 in mat4 tform;
 in vec4 shadowCoords;
 
-uniform sampler2D textures[16];
+uniform sampler2D textures_[16];
 
 uniform int spotlightCount;
 uniform SpotLight spotlights[8];
@@ -96,7 +96,7 @@ void main()
     finalColor = fs.color;
     if( fs.uv.z >= 0.f )
     {
-        finalColor = texture2D(textures[int(fs.uv.z + 1)], fs.uv.xy);
+        finalColor = texture(textures_[int(fs.uv.z + 1)], fs.uv.xy);
     }
 
     if(length(fs.normal) > 0)
@@ -130,7 +130,7 @@ void main()
 
         float visibility = 1.0;
         vec3 sh = shadowCoords.xyz / shadowCoords.w;
-        if ( texture2D( textures[0], sh.xy ).z  <  sh.z - 0.005){
+        if ( texture( textures_[0], sh.xy ).z  <  sh.z - 0.005){
             visibility = 0.75;
         }
 

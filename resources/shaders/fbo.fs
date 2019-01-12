@@ -1,4 +1,4 @@
-#version 450 core
+#version 330 core
 
 out vec4 finalColor;
 
@@ -14,6 +14,6 @@ void main()
     finalColor = fs.color;
     if( fs.uv.z >= 0.f )
     {
-        finalColor = texture2D(textures[int(fs.uv.z - .5)], fs.uv.xy);
+        finalColor = texture(textures[int(fs.uv.z - .5)], fs.uv.xy);
     }
 }
