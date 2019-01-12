@@ -22,12 +22,18 @@ IF(APPLE)
     include_directories(${CMAKE_SOURCE_DIR}/dependencies/mac/glad/)
     include_directories(${CMAKE_SOURCE_DIR}/dependencies/mac/glm/include)
     include_directories(${CMAKE_SOURCE_DIR}/dependencies/mac/glfw/include)
+    include_directories(${CMAKE_SOURCE_DIR}/dependencies/mac/irrKlang/include)
 
     # Package Included Libraries
     target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/mac/projectsane/lib/libProjectSane.a)
     target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/mac/glfw/lib/libglfw.3.3.dylib)
-    target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/mac/irrKlang/libirrklang.dylib)
+    target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/mac/irrKlang/lib/libirrklang.dylib)
     target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/mac/freeimage/lib/libfreeimage.a)
+
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${CMAKE_SOURCE_DIR}/dependencies/mac/irrKlang/lib/ikpMP3.dylib"
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>)
 
 ELSE()
     # Package Included Libraries
