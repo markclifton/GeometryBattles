@@ -38,6 +38,7 @@ include_directories(${CMAKE_SOURCE_DIR}/dependencies/glm/)
 include_directories(${CMAKE_SOURCE_DIR}/dependencies/glad/)
 include_directories(${CMAKE_SOURCE_DIR}/dependencies/glfw3/includes)
 include_directories(${CMAKE_SOURCE_DIR}/dependencies/irrKlang/includes)
+include_directories(${CMAKE_SOURCE_DIR}/dependencies/freeimage/includes)
 include_directories(${CMAKE_SOURCE_DIR}/dependencies/ProjectSane/includes)
 
 # Post Build Steps
