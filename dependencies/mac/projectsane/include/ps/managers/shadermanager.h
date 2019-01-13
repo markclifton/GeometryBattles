@@ -7,8 +7,6 @@
 
 namespace ps
 {
-namespace managers
-{
 class ShaderManager
 {
     ShaderManager();
@@ -28,7 +26,6 @@ private:
     ShaderManager(ShaderManager const&) = delete;
     void operator=(ShaderManager const&) = delete;
 
-    std::vector<std::pair<std::string, std::unique_ptr<Shader> > > m_shaders; //Vector for efficiency
+    std::vector<std::pair<std::string, std::unique_ptr<Shader>>> m_shaders; //Vector for efficiency
 };
-}
 }

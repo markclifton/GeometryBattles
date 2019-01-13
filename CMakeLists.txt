@@ -23,6 +23,7 @@ IF(APPLE)
     include_directories(${CMAKE_SOURCE_DIR}/dependencies/mac/glm/include)
     include_directories(${CMAKE_SOURCE_DIR}/dependencies/mac/glfw/include)
     include_directories(${CMAKE_SOURCE_DIR}/dependencies/mac/irrKlang/include)
+    include_directories(${CMAKE_SOURCE_DIR}/dependencies/mac/freeimage/include)
 
     # Package Included Libraries
     target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/mac/projectsane/lib/libProjectSane.a)

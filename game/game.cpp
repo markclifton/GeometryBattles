@@ -10,13 +10,13 @@
 
 GeometryBattles::GeometryBattles()
 {
-    ps::managers::WindowManager::Get().setTitle("Geometry Battles!");
+    ps::WindowManager::Get().setTitle("Geometry Battles!");
     setup();
 }
 
 GeometryBattles::~GeometryBattles()
 {
-    ps::managers::WindowManager::Get().close();
+    ps::WindowManager::Get().close();
 }
 
 void GeometryBattles::setup()
@@ -25,6 +25,6 @@ void GeometryBattles::setup()
     auto sandbox = contextManager_.find(Sandbox::CONTEXT_NAME);
     sandbox->loadResources();
 
-    ps::ecs::ECSManager::get().addSystem(0, std::make_shared<ps::ecs::RenderingSystem>());
+    ps::ECSManager::get().addSystem(0, std::make_shared<ps::ecs::RenderingSystem>());
     contextManager_.setContext(Sandbox::CONTEXT_NAME);
 }

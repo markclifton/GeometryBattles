@@ -8,8 +8,6 @@
 
 namespace ps
 {
-namespace managers
-{
 class ContextManager
 {
 public:
@@ -29,9 +27,8 @@ private:
     ContextManager(ContextManager const&) = delete;
     void operator=(ContextManager const&) = delete;
 
-    std::vector<std::pair<std::string, std::unique_ptr<ContextBase> > > m_contexts;
+    std::vector<std::pair<std::string, std::unique_ptr<ContextBase>>> m_contexts;
     ContextBase* m_activeContext {nullptr};
 
 };
-}
 }
