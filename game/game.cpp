@@ -5,6 +5,7 @@
 #include "ps/ecs/ecsmanager.h"
 #include "ps/ecs/systems/renderingsystem.h"
 #include "ps/ecs/systems/movementsystem.h"
+#include "ps/ecs/systems/inputcontrolsystem.h"
 #include "ps/managers/windowmanager.h"
 
 #include "levels/sandbox.h"
@@ -28,5 +29,6 @@ void GeometryBattles::setup()
 
     ps::ECSManager::get().addSystem(0, std::make_shared<ps::ecs::RenderingSystem>());
     ps::ECSManager::get().addSystem(1, std::make_shared<ps::ecs::MovementSystem>());
+    ps::ECSManager::get().addSystem(2, std::make_shared<ps::ecs::InputControlSystem>());
     contextManager_.setContext(Sandbox::CONTEXT_NAME);
 }

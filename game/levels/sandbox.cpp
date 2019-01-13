@@ -12,6 +12,7 @@
 #include <glm/gtx/transform.hpp>
 #include "ps/managers/soundmanager.h"
 
+#include "ps/ecs/components/inputcomponent.h"
 #include "ps/ecs/components/movementcomponent.h"
 
 std::string Sandbox::CONTEXT_NAME = "Sandbox";
@@ -28,6 +29,7 @@ void Sandbox::run()
     s->setUniform("view", glm::mat4(1.));
     s->setUniform("camera", glm::mat4(1.));
 
+    ps::ECSManager::get().updateSystems(CONTEXT_NAME, {ps::InputComponent::Type, ps::MovementComponent::Type});
     ps::ECSManager::get().updateSystems(CONTEXT_NAME, {ps::VertexComponent::Type, ps::MovementComponent::Type});
     ps::ECSManager::get().updateSystems(CONTEXT_NAME, {ps::VertexComponent::Type, ps::ShaderComponent::Type});
 }
@@ -41,14 +43,16 @@ void Sandbox::loadResources()
 
     auto rect = std::make_shared<ps::drawable::Rectangle>(CONTEXT_NAME, glm::vec3(0,0,-1), ps::ShaderManager::Get().getShader("Base"));
     rect->setColor(glm::vec4(1,1,1,1));
-    rect->setTransform(glm::scale(glm::vec3(.5,.5,.5)));
+    //rect->setTransform(glm::scale(glm::vec3(.05,.05,.05)));
 
     ps::MovementComponent movement;
-    movement.speed = glm::vec3(.001,0,0);
-    rect->AddComponentOfType(ps::MovementComponent::Type, ps::MovementComponent::CreationFN(this, &movement));
+    rect->AddComponentOfType(ps::MovementComponent::Type, ps::MovementComponent::CreationFN(rect.get(), &movement));
+
+    ps::InputComponent inputComponent;
+    rect->AddComponentOfType(ps::InputComponent::Type, ps::InputComponent::CreationFN(rect.get(), &inputComponent));
 
     ps::ECSManager::get().addEntity(rect);
 
     ps::SoundManager::Get().loadSound("Rain", "resources/sounds/rain.mp3");
-    ps::SoundManager::Get().playSound("Rain");
+    //ps::SoundManager::Get().playSound("Rain");
 }
