@@ -1,5 +1,7 @@
 #include "ecsmanager.h"
 
+#include <thread>
+
 namespace ps
 {
 void ECSManager::updateSystems(const std::string& context, std::vector<ecs::COMP_TYPE> ComponentsToUse)
@@ -57,9 +59,20 @@ void ECSManager::updateSystems(const std::string& context, std::vector<ecs::COMP
         {
             for(auto& component : componentsToUpdate)
             {
-                system.second->update(ComponentsToUse, 0, &component.front());
+                //system.second->update(ComponentsToUse, 0, &component.front());
+
+                void** front = &component.front();
+                auto lamb = [system, ComponentsToUse, front](){
+                    system.second->update(ComponentsToUse, 0, front);
+                };
+
+                threadPool.enqueue(lamb);
             }
         }
+    }
+    while(not threadPool.isEmpty())
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 }
 

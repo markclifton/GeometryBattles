@@ -37,7 +37,6 @@ WindowManager::WindowManager()
     }
 
     glGenVertexArrays(1, &m_vao);
-
     if(m_vao == 0)
     {
         std::cerr << "OpenGL isn't working correctly\n";
@@ -78,11 +77,11 @@ bool WindowManager::shouldClose()
 
 void WindowManager::refresh()
 {
-    //glClearColor(.2f,.3f,.8f,0.f);
     glfwSwapBuffers(m_window.get());
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glfwPollEvents();
     m_latency = (9*m_latency+m_timer.reset())/10.;
+    glfwSetWindowTitle(m_window.get(), std::to_string(1000./m_latency).c_str());
 }
 
 void WindowManager::registerHandler(utils::KeyHandler* handler)
