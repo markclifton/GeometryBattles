@@ -38,17 +38,14 @@ IF(APPLE)
 
 ELSE()
     # Package Included Libraries
-    target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/ProjectSane/lib/libProjectSane.a)
-    target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/irrKlang/lib/libIrrKlang.so)
-    target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/glfw3/lib/libglfw3.a)
-    target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/freeimage/lib/libfreeimage.a)
+    target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/linux/projectsane/lib/libProjectSane.a)
+    target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/linux/irrKlang/lib/libIrrKlang.so)
+    target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/linux/glfw/lib/libglfw3.a)
+    target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/dependencies/linux/freeimage/lib/libfreeimage.a)
 
     # System Available Libraries
-    target_link_libraries(${PROJECT_NAME} GLU)
-    target_link_libraries(${PROJECT_NAME} GL)
     target_link_libraries(${PROJECT_NAME} X11)
     target_link_libraries(${PROJECT_NAME} Xrandr)
-    target_link_libraries(${PROJECT_NAME} Xxf86vm)
     target_link_libraries(${PROJECT_NAME} Xinerama)
     target_link_libraries(${PROJECT_NAME} Xcursor)
     target_link_libraries(${PROJECT_NAME} rt)
@@ -57,12 +54,12 @@ ELSE()
     target_link_libraries(${PROJECT_NAME} dl)
 
     # Header Includes
-    include_directories(${CMAKE_SOURCE_DIR}/dependencies/linux/glm/)
-    include_directories(${CMAKE_SOURCE_DIR}/dependencies/linux/glad/)
-    include_directories(${CMAKE_SOURCE_DIR}/dependencies/linux/glfw3/includes)
-    include_directories(${CMAKE_SOURCE_DIR}/dependencies/linux/irrKlang/includes)
-    include_directories(${CMAKE_SOURCE_DIR}/dependencies/linux/freeimage/includes)
-    include_directories(${CMAKE_SOURCE_DIR}/dependencies/linux/ProjectSane/includes)
+    include_directories(${CMAKE_SOURCE_DIR}/dependencies/linux/glm/include)
+    include_directories(${CMAKE_SOURCE_DIR}/dependencies/linux/glad/include)
+    include_directories(${CMAKE_SOURCE_DIR}/dependencies/linux/glfw3/include)
+    include_directories(${CMAKE_SOURCE_DIR}/dependencies/linux/irrKlang/include)
+    include_directories(${CMAKE_SOURCE_DIR}/dependencies/linux/freeimage/include)
+    include_directories(${CMAKE_SOURCE_DIR}/dependencies/linux/projectsane/include)
 ENDIF()
 
 # Post Build Steps
