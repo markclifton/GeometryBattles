@@ -16,6 +16,7 @@
 #include "ps/ecs/components/interactioncomponent.h"
 #include "ps/ecs/components/movementcomponent.h"
 #include "ps/ecs/components/batchedcomponent.h"
+#include "ps/ecs/components/renderingcomponent.h"
 
 std::string Sandbox::CONTEXT_NAME = "Sandbox";
 
@@ -34,8 +35,7 @@ void Sandbox::run()
     ps::ECSManager::get().updateSystems(CONTEXT_NAME, {ps::InputComponent::Type});
     ps::ECSManager::get().updateSystems(CONTEXT_NAME, {ps::InteractionComponent::Type});
     ps::ECSManager::get().updateSystems(CONTEXT_NAME, {ps::MovementComponent::Type});
-
-    ps::ECSManager::get().updateSystems(CONTEXT_NAME, {ps::VertexComponent::Type, ps::ShaderComponent::Type});
+    ps::ECSManager::get().updateSystems(CONTEXT_NAME, {ps::RenderingComponent::Type});
 
     batch_->draw();
 }
@@ -57,6 +57,9 @@ void Sandbox::loadResources()
 
     ps::InputComponent inputComponent;
     rect->AddComponentOfType(ps::InputComponent::Type, ps::InputComponent::CreationFN(rect.get(), &inputComponent));
+
+    ps::RenderingComponent renderingComponent;
+    rect->AddComponentOfType(ps::RenderingComponent::Type, ps::RenderingComponent::CreationFN(rect.get(), &renderingComponent));
 
     ps::ECSManager::get().addEntity(rect);
 
