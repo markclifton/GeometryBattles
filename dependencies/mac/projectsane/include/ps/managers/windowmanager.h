@@ -1,6 +1,6 @@
 #pragma once
 
-#include "glad/gl.h"
+#include "ps/glad/gl.h"
 #include "GLFW/glfw3.h"
 
 #include <memory>
@@ -17,19 +17,16 @@ class KeyHandler;
 class MouseHandler;
 }
 
-namespace
-{
-struct glfwWindowDeleter
-{
-    void operator()(GLFWwindow* ptr){
-        glfwTerminate();
-        glfwDestroyWindow(ptr);
-    }
-};
-}
-
 class WindowManager
 {
+    struct glfwWindowDeleter
+    {
+        void operator()(GLFWwindow* ptr){
+            glfwTerminate();
+            glfwDestroyWindow(ptr);
+        }
+    };
+
     WindowManager();
 public:
     static WindowManager& Get()
