@@ -12,17 +12,13 @@
 #include <glm/gtx/transform.hpp>
 #include "ps/managers/soundmanager.h"
 
-#include "ps/ecs/components/inputcomponent.h"
-#include "ps/ecs/components/interactioncomponent.h"
-#include "ps/ecs/components/movementcomponent.h"
+#include "game/components/inputcomponent.h"
+#include "game/components/interactioncomponent.h"
+#include "game/components/movementcomponent.h"
 #include "ps/ecs/components/batchedcomponent.h"
 #include "ps/ecs/components/renderingcomponent.h"
 
 std::string Sandbox::CONTEXT_NAME = "Sandbox";
-
-Sandbox::Sandbox()
-{
-}
 
 void Sandbox::run()
 {
@@ -32,9 +28,9 @@ void Sandbox::run()
     s->setUniform("view", glm::mat4(1.));
     s->setUniform("camera", glm::mat4(1.));
 
-    ps::ECSManager::get().updateSystems(CONTEXT_NAME, {ps::InputComponent::Type});
-    ps::ECSManager::get().updateSystems(CONTEXT_NAME, {ps::InteractionComponent::Type});
-    ps::ECSManager::get().updateSystems(CONTEXT_NAME, {ps::MovementComponent::Type});
+    ps::ECSManager::get().updateSystems(CONTEXT_NAME, {InputComponent::Type});
+    ps::ECSManager::get().updateSystems(CONTEXT_NAME, {InteractionComponent::Type});
+    //ps::ECSManager::get().updateSystems(CONTEXT_NAME, {ps::MovementComponent::Type});
     ps::ECSManager::get().updateSystems(CONTEXT_NAME, {ps::RenderingComponent::Type});
 
     batch_->draw();
@@ -44,19 +40,19 @@ void Sandbox::loadResources()
 {
     ps::ShaderManager::Get().loadShader("Base", "resources/shaders/basic.vs", "resources/shaders/basic.fs");
 
-    batch_.reset(new ps::drawable::renderer::Batch(ps::ShaderManager::Get().getShader("Base")));
+    batch_= std::make_unique<ps::drawable::renderer::Batch>(ps::ShaderManager::Get().getShader("Base"));
 
     auto rect = std::make_shared<ps::drawable::Rectangle>(CONTEXT_NAME, glm::vec3(0,0,-1), ps::ShaderManager::Get().getShader("Base"));
     rect->setColor(glm::vec4(1,1,1,1));
 
-    ps::InteractionComponent interaction;
-    rect->AddComponentOfType(ps::InteractionComponent::Type, ps::InteractionComponent::CreationFN(rect.get(), &interaction));
+    InteractionComponent interaction;
+    rect->AddComponentOfType(InteractionComponent::Type, InteractionComponent::CreationFN(rect.get(), &interaction));
 
-    ps::MovementComponent movement;
-    rect->AddComponentOfType(ps::MovementComponent::Type, ps::MovementComponent::CreationFN(rect.get(), &movement));
+    MovementComponent movement;
+    rect->AddComponentOfType(MovementComponent::Type, MovementComponent::CreationFN(rect.get(), &movement));
 
-    ps::InputComponent inputComponent;
-    rect->AddComponentOfType(ps::InputComponent::Type, ps::InputComponent::CreationFN(rect.get(), &inputComponent));
+    InputComponent inputComponent;
+    rect->AddComponentOfType(InputComponent::Type, InputComponent::CreationFN(rect.get(), &inputComponent));
 
     ps::RenderingComponent renderingComponent;
     rect->AddComponentOfType(ps::RenderingComponent::Type, ps::RenderingComponent::CreationFN(rect.get(), &renderingComponent));
@@ -71,11 +67,11 @@ void Sandbox::loadResources()
             ps::BatchedComponent batched;
             tri->AddComponentOfType(ps::BatchedComponent::Type, ps::BatchedComponent::CreationFN(tri.get(), &batched));
 
-            ps::InteractionComponent interaction1;
-            tri->AddComponentOfType(ps::InteractionComponent::Type, ps::InteractionComponent::CreationFN(tri.get(), &interaction1));
+            InteractionComponent interaction1;
+            tri->AddComponentOfType(InteractionComponent::Type, InteractionComponent::CreationFN(tri.get(), &interaction1));
 
-            ps::MovementComponent movement1;
-            tri->AddComponentOfType(ps::MovementComponent::Type, ps::MovementComponent::CreationFN(tri.get(), &movement1));
+            MovementComponent movement1;
+            tri->AddComponentOfType(MovementComponent::Type, MovementComponent::CreationFN(tri.get(), &movement1));
             ps::ECSManager::get().addEntity(tri);
 
             batch_->submit(tri.get());

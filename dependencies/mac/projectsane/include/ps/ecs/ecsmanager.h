@@ -9,15 +9,13 @@
 #include "ientity.h"
 #include "isystem.h"
 
-#include "ps/ecs/systems/interactionsystem.h"
 #include "ps/utils/threadpool.h"
 
 namespace ps
 {
 class ECSManager
 {
-    friend class ecs::InteractionSystem;
-    ECSManager() : threadPool_{12} {}
+    ECSManager() {}
 public:
     static ECSManager& get()
     {
@@ -37,13 +35,11 @@ public:
     }
     //void removeEntity(IEntity* entity); //FIXME!
 
-private:
-    ECSManager(ECSManager const&) = delete;
-    void operator=(ECSManager const&) = delete;
-
     std::map<size_t, std::shared_ptr<ecs::ISystem>> systems_;
     std::vector<std::shared_ptr<ecs::IEntity>> entities_;
 
-    ThreadPool threadPool_;
+private:
+    ECSManager(ECSManager const&) = delete;
+    void operator=(ECSManager const&) = delete;
 };
 }

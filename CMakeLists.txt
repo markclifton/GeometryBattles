@@ -16,6 +16,8 @@ file(GLOB SOURCES
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 
+include_directories(${CMAKE_SOURCE_DIR})
+
 IF(APPLE)
     # Header Includes
     include_directories(${CMAKE_SOURCE_DIR}/dependencies/mac/projectsane/include)

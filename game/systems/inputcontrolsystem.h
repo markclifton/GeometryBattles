@@ -5,15 +5,11 @@
 
 #include "glm/vec3.hpp"
 
-namespace ps
-{
-namespace ecs
-{
-class InputControlSystem : public ISystem, utils::KeyHandler
+class InputControlSystem : public ps::ecs::ISystem, ps::utils::KeyHandler
 {
 public:
     InputControlSystem();
-    void update(std::vector<COMP_TYPE> componentsToUse, float, void** component) override;
+    void update(std::vector<ps::ecs::COMP_TYPE> componentsToUse, float, void** component) override;
 
 protected:
     void process(int key, int scancode, int action, int mods) override;
@@ -21,5 +17,3 @@ protected:
 private:
     glm::vec3 keyboardMovement_ {glm::vec3(0,0,0) };
 };
-}
-}

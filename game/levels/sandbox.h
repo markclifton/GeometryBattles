@@ -8,7 +8,7 @@
 class Sandbox : public ps::ContextBase
 {
 public:
-    Sandbox();
+    Sandbox() = default;
     void run() override;
     void loadResources() override;
 
