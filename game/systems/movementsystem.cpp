@@ -15,16 +15,21 @@ namespace ecs
 MovementSystem::MovementSystem()
 {
     components_.push_back(MovementComponent::Type);
-    multithreaded_ = true;
+    multithreaded_ = false;
 }
 
-void MovementSystem::update(std::vector<COMP_TYPE>, float, void** component)
+void MovementSystem::update(std::vector<COMP_TYPE>, float, void* component)
 {
-    auto baseComponent = reinterpret_cast<BaseComponent*>(*component);
-    auto entity = reinterpret_cast<drawable::DrawableEntity*>(baseComponent->entityHandle);
+    auto baseComponent = static_cast<BaseComponent*>(component);
+    auto entity = static_cast<drawable::DrawableEntity*>(baseComponent->entityHandle);
 
     auto transform = entity->getTransform();
-    auto movement = reinterpret_cast<MovementComponent*>(entity->GetComponentByTypeAndIndex(MovementComponent::Type, 0));
+    auto movement = static_cast<MovementComponent*>(entity->GetComponentByTypeAndIndex(MovementComponent::Type, 0));
+
+    if(movement->speed == glm::vec3(0))
+    {
+        return;
+    }
 
     transform *= glm::translate(movement->speed);
     entity->setTransform(transform);

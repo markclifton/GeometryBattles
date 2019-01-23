@@ -30,7 +30,7 @@ void Sandbox::run()
 
     ps::ECSManager::get().updateSystems(CONTEXT_NAME, {InputComponent::Type});
     ps::ECSManager::get().updateSystems(CONTEXT_NAME, {InteractionComponent::Type});
-    //ps::ECSManager::get().updateSystems(CONTEXT_NAME, {ps::MovementComponent::Type});
+    ps::ECSManager::get().updateSystems(CONTEXT_NAME, {MovementComponent::Type});
     ps::ECSManager::get().updateSystems(CONTEXT_NAME, {ps::RenderingComponent::Type});
 
     batch_->draw();
@@ -59,9 +59,11 @@ void Sandbox::loadResources()
 
     ps::ECSManager::get().addEntity(rect);
 
-    for(float x = -1.f; x < 1.f; x += .1f)
+    int i = 0;
+    float spacing = .1f;
+    for(float x = -1.f; x < 1.f; x += spacing)
     {
-        for(float y = -1.f; y < 1.f; y += .1f)
+        for(float y = -1.f; y < 1.f; y += spacing)
         {
             auto tri = std::make_shared<ps::drawable::Triangle>(CONTEXT_NAME, glm::vec3(x,y,-1), ps::ShaderManager::Get().getShader("Base"));
             ps::BatchedComponent batched;
@@ -75,8 +77,11 @@ void Sandbox::loadResources()
             ps::ECSManager::get().addEntity(tri);
 
             batch_->submit(tri.get());
+            i++;
         }
     }
+
+    std::cout << "Total items: " << i << std::endl;
 
     ps::SoundManager::Get().loadSound("Rain", "resources/sounds/rain.mp3");
     //ps::SoundManager::Get().playSound("Rain");

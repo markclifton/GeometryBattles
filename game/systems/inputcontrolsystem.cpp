@@ -15,11 +15,11 @@ InputControlSystem::InputControlSystem()
     ps::WindowManager::Get().registerHandler(this);
 }
 
-void InputControlSystem::update(std::vector<ps::ecs::COMP_TYPE>, float, void** component)
+void InputControlSystem::update(std::vector<ps::ecs::COMP_TYPE>, float, void* component)
 {
-    auto baseComponent = reinterpret_cast<ps::ecs::BaseComponent*>(*component);
-    auto entity = reinterpret_cast<ps::drawable::DrawableEntity*>(baseComponent->entityHandle);
-    auto movement = reinterpret_cast<MovementComponent*>(entity->GetComponentByTypeAndIndex(MovementComponent::Type, 0));
+    auto baseComponent = static_cast<ps::ecs::BaseComponent*>(component);
+    auto entity = static_cast<ps::drawable::DrawableEntity*>(baseComponent->entityHandle);
+    auto movement = static_cast<MovementComponent*>(entity->GetComponentByTypeAndIndex(MovementComponent::Type, 0));
 
     movement->speed = keyboardMovement_;
 }

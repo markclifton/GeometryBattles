@@ -10,7 +10,7 @@ class MovementSystem : public ISystem
 {
 public:
     MovementSystem();
-    void update(std::vector<COMP_TYPE> componentsToUse, float, void** component) override;
+    void update(std::vector<COMP_TYPE> componentsToUse, float, void* component) override;
 };
 }
 }

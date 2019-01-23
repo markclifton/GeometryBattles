@@ -9,7 +9,7 @@ class InputControlSystem : public ps::ecs::ISystem, ps::utils::KeyHandler
 {
 public:
     InputControlSystem();
-    void update(std::vector<ps::ecs::COMP_TYPE> componentsToUse, float, void** component) override;
+    void update(std::vector<ps::ecs::COMP_TYPE> componentsToUse, float, void* component) override;
 
 protected:
     void process(int key, int scancode, int action, int mods) override;
